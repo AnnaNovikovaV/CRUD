@@ -10,7 +10,7 @@ import web.service.UserService;
 import web.service.UserServiceImpl;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService = new UserServiceImpl();

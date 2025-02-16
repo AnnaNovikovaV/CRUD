@@ -1,43 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cars List</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <title>Users</title>
 </head>
 <body>
-<h1>User List</h1>
-
 <table>
-    <thead>
     <tr>
-        <th>ID</th>
+        <th>Id</th>
         <th>Name</th>
-        <th>Last Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Action</th>
     </tr>
-    </thead>
-    <tbody>
     <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getSurname()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td>
+            <a th:href="@{/{id}/edit (id = ${user.getId()})}">
+                <input type="button" value="Edit"/>
+            </a>
+            <form th:method="DELETE" th:action="@{/{id}/delete(id=${user.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+        </td>
     </tr>
-    </tbody>
 </table>
 
-<p th:if="${users.isEmpty()}">No cars available.</p>
 </body>
+
+<form action="/new">
+    <button type="submit">Add</button>
+</form>
 </html>
