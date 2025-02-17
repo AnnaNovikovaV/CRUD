@@ -14,7 +14,9 @@
         <th>Age</th>
         <th>Action</th>
     </tr>
+    <!--/*@thymesVar id="users" type="web"*/-->
     <tr th:each="user : ${users}">
+        <!--/*@thymesVar id="getId" type="web"*/-->
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getName()}"></td>
         <td th:text="${user.getSurname()}"></td>

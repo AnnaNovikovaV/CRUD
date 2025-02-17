@@ -9,10 +9,10 @@ public interface UserDao {
     void add(User user);
 
     List<User> getAllUsers();
-
-    User getUserById(Long id);
-
-    void createNewUser(User user);
-
-    void deleteUser(Long id);
+//
+//    User getUserById(Long id);
+//
+//    User createNewUser(User user);
+//
+//    void deleteUser(Long id);
 }
