@@ -10,17 +10,14 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>Surname</th>
-        <th>Age</th>
+        <th>LastName</th>
         <th>Action</th>
     </tr>
-    <!--/*@thymesVar id="users" type="web"*/-->
     <tr th:each="user : ${users}">
         <!--/*@thymesVar id="getId" type="web"*/-->
         <td th:text="${user.getId()}"></td>
         <td th:text="${user.getName()}"></td>
-        <td th:text="${user.getSurname()}"></td>
-        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getLastName()}"></td>
         <td>
             <a th:href="@{/{id}/edit (id = ${user.getId()})}">
                 <input type="button" value="Edit"/>

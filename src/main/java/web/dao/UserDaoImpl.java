@@ -14,82 +14,35 @@ public class UserDaoImpl implements UserDao {
    private EntityManager entityManager;
 
     @Override
-    public void add(User user) {
-        add(new User(1L, "Ivan", "Ivanov"));
-        add(new User(2L, "Petr", "Petrov"));
-        add(new User(3L, "Sidor", "Sidorov"));
-        add(new User(4L, "Vladimir", "Vladimirov"));
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
 
-//    @Override
-//    public User getUserById(Long id) {
-//        return entityManager.find(User.class, id);
-//    }
-//
-//
-//    public User createNewUser(User user) {
-//        EntityTransaction transaction = null;
-////        try {
-////            transaction = eManager.getTransaction();
-////            transaction.begin();
-////            eManager.persist(user);
-////            transaction.commit();
-////        } catch (Exception e) {
-////                transaction.rollback();
-////
-////        }
-//        entityManager.persist(user);
-//        entityManager.flush();
-//        return user;
-//    }
-//
-//    public void deleteUser(Long id) {
-////        EntityTransaction transaction = null;
-////        try {
-////            transaction = entityManager.getTransaction();
-////            transaction.begin();
-////            User user = entityManager.find(User.class, id);
-////            if (user != null) {
-////                entityManager.remove(user); // Удалите сущность
-////            } else {
-////                System.out.println("Пользователь с id " + id + " не найден. Невозможно удалить.");
-////                // Рассмотрите возможность выброса исключения здесь, если отсутствие пользователя является ошибкой
-////            }
-////            transaction.commit();
-////        } catch (Exception e) {
-////                transaction.rollback();
-////            }
-//        User user = getUserById(id);
-//        if (null == user) {
-//            throw new NullPointerException("User not found");
-//        }
-//        entityManager.remove(user);
-//        entityManager.flush();
-//    }
-//
-//    public void updateUser(int id, User user) {
-////        EntityTransaction transaction = null;
-////        try {
-////            transaction = entityManager.getTransaction();
-////            transaction.begin();
-////            User existingUser = entityManager.find(User.class, id);
-////            if (existingUser != null) {
-////                user.setId(id); // Убедитесь, что ID установлен
-////                entityManager.merge(user);
-////            } else {
-////                System.out.println("Пользователь с id " + id + " не найден. Невозможно обновить.");
-////                // Рассмотрите возможность выброса исключения здесь, если отсутствие пользователя является ошибкой
-////            }
-////            transaction.commit();
-////        } catch (Exception e) {
-////                transaction.rollback();
-////        }
-//        entityManager.merge(user);
-//        entityManager.flush();
-//    }
+    @Override
+    public void createUser(User user) {
+        entityManager.persist(user);
+        entityManager.flush();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.merge(user);
+        entityManager.flush();
+    }
+
+    @Override
+    public User readUser(long id) {
+        return entityManager.find(User.class, id);
+    }
+
+    @Override
+    public User deleteUser(long id) throws NullPointerException {
+        User user = readUser(id);
+        if (null == user) {
+            throw new NullPointerException("User not found");
+        }
+        entityManager.remove(user);
+        entityManager.flush();
+        return user;
+    }
 }

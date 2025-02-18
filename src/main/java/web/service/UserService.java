@@ -6,8 +6,11 @@ import java.util.List;
 
 public interface UserService {
 
-    List<User> printUsers();
-//    User createUser(User user);
-//    void update(Long id, User user);
-//    void delete(Long id);
+    List<User> getAllUsers();
+
+    User readUser(long id);
+
+    User deleteUser(long parseUnsignedInt);
+
+    void createOrUpdateUser(User user);
 }
