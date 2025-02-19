@@ -3,16 +3,16 @@ package web.dao;
 import web.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDao {
 
-    List<User> getAllUsers();
 
-    void createUser(User user);
+    List<User> findAll();
 
-    void updateUser(User user);
+    Optional<User> findById(int id);
 
-    User readUser(long id);
+    void save(User user);
 
-    User deleteUser(long id);
+    void deleteById(int id);
 }

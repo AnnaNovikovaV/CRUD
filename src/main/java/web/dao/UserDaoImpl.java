@@ -6,43 +6,42 @@ import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
-   private EntityManager entityManager;
+   private  EntityManager entityManager;
+
+    public UserDaoImpl() {
+    }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> findAll() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
 
     @Override
-    public void createUser(User user) {
+    public Optional<User> findById(int id) {
+        return Optional.ofNullable(entityManager.find(User.class, id));
+    }
+
+    @Override
+    public void save(User user) {
         entityManager.persist(user);
         entityManager.flush();
     }
 
     @Override
-    public void updateUser(User user) {
-        entityManager.merge(user);
-        entityManager.flush();
-    }
+    public void deleteById(int id) {
 
-    @Override
-    public User readUser(long id) {
-        return entityManager.find(User.class, id);
-    }
-
-    @Override
-    public User deleteUser(long id) throws NullPointerException {
-        User user = readUser(id);
-        if (null == user) {
-            throw new NullPointerException("User not found");
-        }
-        entityManager.remove(user);
+//        Optional<User> user = findById(id);
+//        if (!user.isPresent()) {
+//            throw new NullPointerException("User not found");
+//        }
+        findById(id).ifPresent(entityManager::remove);
+//        entityManager.remove(user);
         entityManager.flush();
-        return user;
     }
 }

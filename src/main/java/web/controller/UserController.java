@@ -1,49 +1,73 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
-import web.service.UserServiceImpl;
+
+import javax.validation.Valid;
 
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping()
 public class UserController {
 
-    private  UserService userService = new UserServiceImpl();
+    private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-@GetMapping
-public String printUsers(Model model) {
-    model.addAttribute("users", userService.getAllUsers());
-    return "redirect:/user";
-}
-
-
-    @PostMapping("/new")
-    public String newUser(@RequestParam(value = "name", required = false) String name,
-                          @RequestParam(value = "lastName", required = false) String lastName,
-                          @RequestParam(value = "id", required = false) Integer id, Model model) {
-        model.addAttribute("user", new User(id, name, lastName));
-        return "redirect:/users";
-    }
-//
-    @GetMapping("/update")
-    public String updateUser(@RequestParam(value = "id", required = false) Integer id,
-                             @RequestParam(value = "name", required = false) String name,
-                             @RequestParam(value = "lastName", required = false) String lastName,
-                             Model model) {
-        model.addAttribute("user", new User(id, name, lastName));
-        return "redirect:/users";
+    @GetMapping()
+    public String index(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "index";
     }
 
-    public String deleteUser(@RequestParam(value = "id", required = false) Integer id, Model model) {
-        model.addAttribute("user", new User());
-        return "redirect:/users";
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("users", userService.findOne(id));
+        return "show";
+    }
+
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("users") User user) {
+        return "new";
+    }
+
+    @PostMapping()
+    public String create(@ModelAttribute("users") @Valid User user,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "new";
+
+        userService.save(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("users", userService.findOne(id));
+        return "edit";
+    }
+
+    @PostMapping("/{id}")
+    public String update(@ModelAttribute("users") @Valid User user, BindingResult bindingResult,
+                         @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "edit";
+
+        userService.update(id, user);
+        return "redirect:/";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable("id") String id) {
+        userService.delete(Integer.parseInt(id));
+        return "redirect:/";
     }
 }

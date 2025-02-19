@@ -7,52 +7,40 @@ import web.dao.UserDaoImpl;
 import web.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
 
-    private  UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao;
 
-    public UserServiceImpl() {
-        this.userDao = new UserDaoImpl();
+    public UserServiceImpl( UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    @Override
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 
-    @Override
-    public void createOrUpdateUser(User user) {
-        if (0 == user.getId()) {
-            createUser(user);
-        } else {
-            updateUser(user);
-        }
+    public User findOne(int id) {
+        Optional<User> foundPerson = userDao.findById(id);
+        return foundPerson.orElse(null);
     }
 
-    private void createUser(User user) {
-        userDao.createUser(user);
+    @Transactional
+    public void save(User user) {
+        userDao.save(user);
     }
 
-    private void updateUser(User user) {
-        userDao.updateUser(user);
+    @Transactional
+    public void update(int id, User updatedUser) {
+        updatedUser = userDao.findById(id).orElse(null);
+        userDao.save(updatedUser);
     }
 
-    @Override
-    public User readUser(long id) {
-        return userDao.readUser(id);
-    }
-
-    @Override
-    public User deleteUser(long id) {
-        User user = null;
-        try {
-            user = userDao.deleteUser(id);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return user;
+    @Transactional
+    public void delete(int id) {
+        userDao.deleteById(id);
     }
 }

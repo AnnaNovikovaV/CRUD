@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<!--/*@thymesVar id="user" type="web.model.User"*/-->
+<div th:each="user : ${users}">
+    <a th:href="@{/{id}(id=${user.getId()})}"
+       th:text="${user.getName() + ', ' + user.getAge()}">user</a>
+    <a th:href="@{/{id}/edit(id=${user.getId()})}">
+    <input type="button" value="Edit"/>
+    </a>
+    <form th:method="POST" th:action="@{/{id}/delete(id=${user.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/users/new">Create new person</a>
+
+</body>
+</html>
