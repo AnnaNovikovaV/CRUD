@@ -35,8 +35,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void update(int id, User updatedUser) {
-        updatedUser = userDao.findById(id).orElse(null);
-        userDao.save(updatedUser);
+       User user = userDao.findById(id).orElse(null);
+        user.setName(updatedUser.getName());
+        user.setAge(updatedUser.getAge());
+        user.setEmail(updatedUser.getEmail());
+        userDao.save(user);
     }
 
     @Transactional
