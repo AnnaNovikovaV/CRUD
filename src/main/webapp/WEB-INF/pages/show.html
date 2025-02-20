@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Show</title>
-</head>
-<body>
-<!--/*@thymesVar id="user" type="web.model.User"*/-->
-<p th:text="${user.getName() + ', ' + user.getAge()}">VALUE</p>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Show</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash;/*@thymesVar id="user" type="web.model.User"*/&ndash;&gt;-->
+<!--<p th:text="${user.getName() + ', ' + user.getAge()}">VALUE</p>-->
 
-<p th:text="${'Email: ' + user.getEmail}">VALUE</p>
-<p th:text="${user.getId()}">VALUE</p>
+<!--<p th:text="${'Email: ' + user.getEmail}">VALUE</p>-->
+<!--<p th:text="${user.getId()}">VALUE</p>-->
 
-<!--<a th:href="@{/users/1}">Edit</a>-->
-<a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a>
-<form th:method="POST" th:action="@{/{id}(id=${user.getId()})}">
-    <input type="submit" value="Edit"/>
-</form>
+<!--&lt;!&ndash;<a th:href="@{/users/1}">Edit</a>&ndash;&gt;-->
+<!--<a th:href="@{/edit(id=${user.getId()})}">Edit</a>-->
+<!--<form th:method="POST" th:action="@{/{id}(id=${user.getId()})}">-->
+<!--    <input type="submit" value="Edit"/>-->
+<!--</form>-->
 
-<form th:method="POST" th:action="@{/{id}/delete(id=${user.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
-</body>
-</html>
+<!--<form th:method="POST" th:action="@{/{id}/delete(id=${user.getId()})}">-->
+<!--    <input type="submit" value="Delete"/>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+<!--</html>-->

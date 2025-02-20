@@ -158,11 +158,11 @@
             </div>
 
             <div class="actions">
-                <a th:href="@{/{id}/edit(id=${user.getId()})}"
+                <a th:href="@{/edit(id=${user.getId()})}"
                    class="btn btn-edit">Edit</a>
 
                 <form th:method="POST"
-                      th:action="@{/{id}/delete(id=${user.getId()})}"
+                      th:action="@{/delete(id=${user.getId()})}"
                       style="display: inline;">
                     <button type="submit" class="btn btn-delete">Delete</button>
                 </form>

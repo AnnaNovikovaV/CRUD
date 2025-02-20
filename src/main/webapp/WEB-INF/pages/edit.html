@@ -75,7 +75,7 @@
 <div class="form-container">
     <h1>Edit User</h1>
 
-    <form th:action="@{/{id}/update(id=${user.getId()})}" th:object="${user}" method="post">
+    <form th:action="@{/update(id=${user.getId()})}" th:object="${user}" method="post">
         <div class="form-group">
             <label for="name">Name</label>
             <input

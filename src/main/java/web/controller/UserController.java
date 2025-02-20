@@ -28,11 +28,11 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("users", userService.findOne(id));
-        return "show";
-    }
+//    @GetMapping("/show")
+//    public String show(@RequestParam("id") int id, Model model) {
+//        model.addAttribute("users", userService.findOne(id));
+//        return "show";
+//    }
 
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("user") User user) {
@@ -49,15 +49,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    @GetMapping("/edit")
+    public String edit(Model model, @RequestParam("id") int id) {
         model.addAttribute("user", userService.findOne(id));
         return "edit";
     }
 
-    @PostMapping("/{id}/update")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+    @PostMapping("/update")
+    public String update(@RequestParam("id") int id,@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "edit";
 
@@ -65,8 +64,8 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") int id) {
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") int id) {
         userService.delete(id);
         return "redirect:/";
     }
