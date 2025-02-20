@@ -152,8 +152,7 @@
     <div class="users-list">
         <div th:each="user : ${users}" class="user-card">
             <div class="user-info">
-                <a th:href="@{/{id}(id=${user.getId()})}"
-                   th:text="${user.getName() + ', ' + user.getAge()}"
+                <a th:text="${user.getName() + ', ' + user.getAge()}"
                    class="user-link">user</a>
             </div>
 

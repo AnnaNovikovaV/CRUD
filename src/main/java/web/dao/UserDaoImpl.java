@@ -14,17 +14,14 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
    private  EntityManager entityManager;
 
-    public UserDaoImpl() {
-    }
-
     @Override
     public List<User> findAll() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
 
     @Override
-    public Optional<User> findById(int id) {
-        return Optional.ofNullable(entityManager.find(User.class, id));
+    public User findById(int id) {
+        return Optional.ofNullable(entityManager.find(User.class, id)).orElse(null);
     }
 
     @Override
@@ -35,13 +32,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteById(int id) {
+        User user = findById(id);
 
-//        Optional<User> user = findById(id);
-//        if (!user.isPresent()) {
-//            throw new NullPointerException("User not found");
-//        }
-        findById(id).ifPresent(entityManager::remove);
-//        entityManager.remove(user);
+        if (user == null) {
+            throw new NullPointerException("User not found");
+        }
+
+        entityManager.remove(user);
         entityManager.flush();
     }
 }

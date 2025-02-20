@@ -3,11 +3,9 @@ package web.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
-import web.dao.UserDaoImpl;
 import web.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,8 +22,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User findOne(int id) {
-        Optional<User> foundPerson = userDao.findById(id);
-        return foundPerson.orElse(null);
+        return userDao.findById(id);
     }
 
     @Transactional
@@ -35,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void update(int id, User updatedUser) {
-       User user = userDao.findById(id).orElse(null);
+       User user = userDao.findById(id);
         user.setName(updatedUser.getName());
         user.setAge(updatedUser.getAge());
         user.setEmail(updatedUser.getEmail());

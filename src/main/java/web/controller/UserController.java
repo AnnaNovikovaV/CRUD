@@ -28,12 +28,6 @@ public class UserController {
         return "index";
     }
 
-//    @GetMapping("/show")
-//    public String show(@RequestParam("id") int id, Model model) {
-//        model.addAttribute("users", userService.findOne(id));
-//        return "show";
-//    }
-
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("user") User user) {
         return "new";
@@ -56,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String update(@RequestParam("id") int id,@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String update(@RequestParam("id") int id, @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "edit";
 
