@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("user") User user) {
+    public String newUser(@ModelAttribute("user") User user) {
         return "new";
     }
 

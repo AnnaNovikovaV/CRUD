@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
-    public UserServiceImpl( UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public void update(int id, User updatedUser) {
-       User user = userDao.findById(id);
+        User user = userDao.findById(id);
         user.setName(updatedUser.getName());
         user.setAge(updatedUser.getAge());
         user.setEmail(updatedUser.getEmail());
